@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 function TasksList() {
     const [tasks, setTasks] = useState([])
 
-    // UseEffect usado para consumir a API 
+    // UseEffect used to consume the API 
     useEffect(() => {
         fetch('http://localhost:3001/tasks')
             .then((data) => data.json())
@@ -11,14 +11,14 @@ function TasksList() {
             .catch((e) => {
                 console.log('API not found')
             })
-    });
+    }, []);
 
     return (
         <div>
-            <p>TasksList component working!</p>
+            <h1>EBYTR Tasks Controller</h1>
             <ul>
                 {tasks.map((p) => (
-                    <li>Task: {p.description} | Creation Date: {p.createdIn} | Status: {p.status} </li>
+                    <li key={p.id}>Task: {p.description} | Creation Date: {p.createdIn} | Status: {p.status} </li>
                 ))}
             </ul>
         </div>
