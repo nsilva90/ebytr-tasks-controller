@@ -1,24 +1,24 @@
 import React, { useState, useEffect } from 'react';
+import api from "../services/api";
 
 function TasksList() {
     const [tasks, setTasks] = useState([])
+    console.log(tasks)
 
-    // UseEffect used to consume the API 
     useEffect(() => {
-        fetch('http://localhost:3001/tasks')
-            .then((data) => data.json())
-            .then((tasks) => setTasks(tasks))
+        api.get("/")
+            .then(({ data }) => setTasks(data.tasks))
             .catch((e) => {
-                console.log('API not found')
+                console.log(e)
             })
     }, []);
 
     return (
         <div>
-            <h1>EBYTR Tasks Controller</h1>
+            <h1 className="title">EBYTR Tasks Controller</h1>
             <ul>
                 {tasks.map((p) => (
-                    <li key={p.id}>Task: {p.description} | Creation Date: {p.createdIn} | Status: {p.status} </li>
+                    <li className="lineTask" key={p._id}>Task: {p.description} | Creation Date: {p.createdIn} | Status: {p.taskStatus} </li>
                 ))}
             </ul>
         </div>
